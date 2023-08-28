@@ -1,0 +1,42 @@
+class Solution {
+public:
+    
+    //helper function see if the selected max difference occurs with p pairs of indices
+    bool pPairs(vector<int> vec,int val,int p){
+        
+        int i;
+        int cnt=0;
+        for(i=0;i<vec.size()-1;i++){
+            if(val>=abs(vec[i+1]-vec[i])) {
+                cnt++;
+                 i++; //since indices are not to be repeated
+         }
+                
+        }
+        
+        return cnt>=p;
+        
+    }
+    
+    
+    int minimizeMax(vector<int>& nums, int p) {
+        //Binary search on answers
+        sort(nums.begin(),nums.end());
+        int ans=INT_MAX;
+        
+        
+        //range of possible differences 0 to 1e9+7
+        //will apply binary search and select a max difference
+        int l=0,h=1e9+7,m;
+        while(l<=h){
+            m=(l+h)/2;
+            if(pPairs(nums,m,p)){ //if difference has p or more pairs in nums we minimize the difference
+                h=m-1;
+                // ans=min(ans,m);
+            } 
+            else l=m+1;
+            
+        }
+        return l;
+    }
+};
