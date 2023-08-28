@@ -1,0 +1,29 @@
+class Solution{
+    public:
+    //Complete this function
+    int fact(int n){
+        if(n==1) return 1;
+        return n*fact(n-1);
+        
+    }
+    
+    vector<string> permutation(string S)
+    {
+        vector<string> ans;
+        ans.push_back(S);
+        //sort(S.begin(),S.end());
+        
+        int k=fact(S.size())-1;
+        
+        while(k){
+            next_permutation(S.begin(),S.end());
+            ans.push_back(S);
+            k--;
+            
+        }
+        
+        sort(ans.begin(),ans.end());
+        return ans;
+        
+    }
+};
