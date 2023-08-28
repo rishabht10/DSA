@@ -1,0 +1,68 @@
+class Solution 
+{
+    public:
+    //Function to find a solved Sudoku. 
+    bool isValid(int grid[N][N], int row, int col, int d){
+        
+        int i;
+        for(i=0;i<N;i++)
+       if(grid[row][i]==d || grid[i][col]==d||grid[3*(row/3)+i/3][3*(col/3)+i%3]==d) return false;
+       
+       return true;
+           
+            
+            
+        
+    }
+    
+    
+    bool sudokuSolver(int grid[N][N]){
+        
+        // int n=grid.size();
+        int i,j,d;
+        for(i=0;i<N;i++){
+            for(j=0;j<N;j++){
+                if(!grid[i][j]){
+                    for(d=1;d<=9;d++){
+                        if(isValid(grid,i,j,d)){
+                            grid[i][j]=d;
+                            if(!sudokuSolver(grid)) grid[i][j]=0;
+                            else return true;
+                            
+                            
+                    }
+                   
+                    
+                    
+                    
+                }
+                return false;
+                
+            }
+            
+            
+        }
+       
+        
+        
+        
+    }
+     return true;
+    }
+    
+    bool SolveSudoku(int grid[N][N])  
+    { 
+       return sudokuSolver(grid);
+    }
+    
+    //Function to print grids of the Sudoku.
+    void printGrid (int grid[N][N]) 
+    {
+        int i,j;
+        for(i=0;i<N;i++)
+            for(j=0;j<N;j++)  cout<<grid[i][j]<<" ";
+        
+    }
+    
+    
+};
