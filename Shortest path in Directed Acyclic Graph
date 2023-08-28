@@ -1,0 +1,41 @@
+// User function Template for C++
+class Solution {
+  public:
+     vector<int> shortestPath(int N,int M, vector<vector<int>>& edges){
+        vector<int> dist(N,INT_MAX);
+        vector<vector<pair<int,int>>> adjLs(N,vector<pair<int,int>>());
+        
+        for(auto it:edges) adjLs[it[0]].push_back({it[1],it[2]});
+        
+        queue<pair<int,int>> q;
+        q.push({0,0});
+        dist[0]=0;
+        
+        
+        while(!q.empty()){
+            
+            int tmp=q.front().first;
+            int d=q.front().second;
+            
+            q.pop();
+            
+            for(auto it:adjLs[tmp]){
+                
+                if(d+it.second<dist[it.first]){
+                    dist[it.first]=d+it.second;
+                    q.push({it.first,dist[it.first]});
+                }
+            }
+            
+            
+            
+        }
+        
+        for(auto& it:dist) 
+        if(it==INT_MAX) it=-1;
+        
+        return dist;
+        
+        
+    }
+};
