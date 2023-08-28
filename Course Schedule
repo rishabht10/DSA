@@ -1,0 +1,62 @@
+class Solution {
+public:
+    bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> inDegree(numCourses,0);
+        vector<int> vis(numCourses,0);
+        vector<int> adjls[numCourses];
+        vector<int> topo;
+        
+        //adjacency list
+        for(auto it:prerequisites)
+            adjls[it[0]].push_back(it[1]);
+        
+        
+        int i;
+        
+        //indegrees
+        for(auto it:prerequisites)
+            inDegree[it[1]]++;
+        
+        
+        
+        //Topo Sort
+        
+        queue<int> q;
+        for(i=0;i<numCourses;i++)
+        {
+            if(!inDegree[i])
+            {
+                q.push(i);
+            vis[i]=1;
+        }
+            
+        }
+            
+        
+        while(!q.empty()){
+           auto tmp=q.front();
+            q.pop();
+            topo.push_back(tmp);
+            
+            for(auto it:adjls[tmp])
+                inDegree[it]--;
+            
+            for(i=0;i<numCourses;i++)
+        {
+            if(!inDegree[i] && !vis[i])
+            {
+                q.push(i);
+            vis[i]=1;
+        }
+            
+        }
+            
+            
+        }
+        
+        if(topo.size()==numCourses) return true;
+        
+        return false;
+        
+    }
+};
