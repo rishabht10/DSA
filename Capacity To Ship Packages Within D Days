@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int daysToShip(vector<int> wt,int capacity){
+        int w=0,days=1,i;
+        for(i=0;i<wt.size();i++){
+            if(w+wt[i]>capacity){
+                days++;
+                w=wt[i];
+            }
+            else w+=wt[i];
+            
+        }
+        return days;
+        
+        
+        
+    }
+    
+    pair<int,int> maxWeight(vector<int> vec){
+       int maxi=INT_MIN,sum=0;
+        for(auto it:vec){
+             maxi=max(it,maxi);
+            
+            sum+=it;
+            
+        }
+        return {maxi,sum};
+        
+        
+        
+        
+        
+        
+    }
+    
+    int shipWithinDays(vector<int>& weights, int days) {
+        
+        int l=maxWeight(weights).first,h=maxWeight(weights).second,m;
+        
+        while(l<=h){
+            m=(l+h)/2;
+            
+            if(daysToShip(weights,m)<=days) h=m-1;
+            else l=m+1;
+            
+            
+        }
+        return l;
+        
+        
+        
+    }
+};
