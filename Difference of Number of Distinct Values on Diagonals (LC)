@@ -1,0 +1,50 @@
+class Solution {
+public:
+    vector<vector<int>> differenceOfDistinctValues(vector<vector<int>>& grid) {
+        int i,j,p,q,topl,botmr;
+        
+        int n=grid.size();
+        int m=grid[0].size();
+        unordered_set<int> st;
+         vector<vector<int>> ans(n,vector<int>(m,0));
+        
+        for(i=0;i<n;i++){
+            for(j=0;j<m;j++){
+                p=i;
+                q=j;
+                p--;
+                q--;
+                while(p>=0 &&  q>=0 ){
+                    
+                   
+                    if(p>=0 && p<n && p>=0&&q<m)
+                    st.insert(grid[p][q]);
+                     p--;
+                    q--;
+                }
+                
+                topl=st.size();
+                st.clear();
+                p=i;
+                q=j;
+                
+                while( p<n-1 &&  q<m-1){
+                    p++;
+                    q++;
+                    if(p>=0 && p<n && p>=0 && q<m)
+                    st.insert(grid[p][q]);
+                }
+                botmr=st.size();
+                st.clear();
+                
+                
+                ans[i][j]=abs(topl-botmr);
+                
+                
+                
+            }
+        }
+        
+        return ans;
+    }
+};
