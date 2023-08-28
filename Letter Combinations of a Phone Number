@@ -1,0 +1,29 @@
+class Solution {
+public:
+    void combination(vector<string>& ans, string digits, string comb,vector<string> numMap){
+        if(!digits.size()) {
+            ans.push_back(comb);
+            return;
+        } 
+        
+        string letters=numMap[digits[0]-'2'];
+        
+        for(auto it:letters)
+            combination(ans,digits.substr(1),comb+it,numMap);
+        
+        
+        
+        
+        
+    }
+    
+    vector<string> letterCombinations(string digits) {
+        vector<string> ans;
+        if(!digits.size()) return ans;
+        vector<string> numMap={"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        combination(ans,digits,"",numMap);
+        return ans;
+        
+        
+    }
+};
