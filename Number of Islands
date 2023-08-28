@@ -1,0 +1,51 @@
+class Solution {
+public:
+    void BFS(vector<vector<char>> grid,vector<vector<int>>& vis,pair<int,int> start){
+        int n=grid.size();
+        int m=grid[0].size();
+        int i, j,nrow,ncol;
+        vector<int> drow={0,0,1,-1};
+        vector<int> dcol={1,-1,0,0};
+        queue<pair<int,int>> q;
+        q.push(start);
+        vis[start.first][start.second]=1;
+        while(!q.empty()){
+            i=q.front().first;
+            j=q.front().second;
+            q.pop();
+            for(int p=0;p<4;p++){
+                nrow=i+drow[p];
+                ncol=j+dcol[p];
+                
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && !vis[nrow][ncol] && grid[nrow][ncol]=='1')
+                    {
+                   q.push({nrow,ncol});
+                    vis[nrow][ncol]=1;
+                    
+                }
+                
+            }
+            
+        }
+        
+    }
+             
+    int numIslands(vector<vector<char>>& grid) {
+        int n=grid.size();
+       int m=grid[0].size();
+       int i,j,island=0;
+        vector<vector<int>> vis(n,vector<int>(m,0));
+        for(i=0;i<n;i++){
+            for(j=0;j<m;j++){
+                if(grid[i][j]=='1' && !vis[i][j]){
+                 island++;
+                  BFS(grid,vis,{i,j});
+                    
+                }
+                
+            }
+        }
+       
+        return island;
+    }
+};
