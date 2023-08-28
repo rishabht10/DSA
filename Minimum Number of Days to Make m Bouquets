@@ -1,0 +1,48 @@
+class Solution {
+public:
+    
+    bool possibleMinDay(int day, vector<int> vec, long M, int k){
+        
+        int totalBouq=0,flwCount=0;
+        
+        for(auto it:vec){
+            if(it<=day) flwCount++;
+            else{
+                totalBouq+=flwCount/k;
+               flwCount=0;
+            }
+            
+        }
+        totalBouq+=flwCount/k;
+        if(totalBouq>=M) return true;
+        return false;
+        
+    }
+    
+    pair<int ,int> minMax(vector<int> vec){
+       int mini=INT_MAX,maxi=INT_MIN;
+        
+        for(auto it:vec)
+            {
+            maxi=max(it,maxi);
+            mini=min(it,mini);
+        }
+        return {mini,maxi};
+        
+    }
+    
+    int minDays(vector<int>& bloomDay, int m, int k) {
+       long M= (long) m;
+        int l=minMax(bloomDay).first, h=minMax(bloomDay).second,mid;
+        
+        if(bloomDay.size()<M*k) return -1;
+        
+        while(l<=h){
+            mid=(l+h)/2;
+            if(possibleMinDay(mid,bloomDay,M,k)) h=mid-1;
+           else l=mid+1;
+        }
+        
+       return l;
+    }
+};
