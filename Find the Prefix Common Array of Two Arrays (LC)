@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int findCi(int i, vector<int>& M, vector<int>& N){
+        int j, count=0,k;
+        for(j=0;j<=i;j++){
+            for(k=0;k<=i;k++)  {
+                if(M[j]==N[k]){
+                    count++;
+                    break;
+                }
+                    
+            }  
+            }
+        return count;
+        
+    }
+    vector<int> findThePrefixCommonArray(vector<int>& A, vector<int>& B) {
+        int n=A.size(),i=0;
+        vector<int> C;
+        while(i<n){
+            C.push_back(findCi(i,A,B));
+            i++;
+        }
+        return C;
+    }
+};
