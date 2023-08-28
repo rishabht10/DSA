@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int longestSubsequence(vector<int>& arr, int difference) {
+        int maxi=1;
+       map<int,int> seq;
+        for(auto it: arr){
+           if(seq.find(it-difference)!=seq.end()){
+               seq[it]=seq[it-difference]+1;
+         maxi=max(maxi,seq[it]);
+               
+           }
+            else seq[it]=1;
+            
+        }
+        
+        return maxi;
+        
+        
+    }
+};
