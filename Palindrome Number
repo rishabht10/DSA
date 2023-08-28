@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool palindrome(int ind, string num){
+        if(ind==num.size()/2) return true;
+        
+        if(num[ind]!=num[num.size()-ind-1]) return false;
+        
+       return palindrome(ind+1,num);
+        
+    }
+    
+    bool isPalindrome(int x) {
+       string num=to_string(x);
+        return palindrome(0,num);
+    }
+};
