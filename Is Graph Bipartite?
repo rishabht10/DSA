@@ -1,0 +1,91 @@
+class Solution {
+    bool isBiptt=true;
+public:
+    void DFS(vector<int>& vis,int start,vector<vector<int>> adjls){
+        for(auto it: adjls[start]){
+            if(vis[it]==-1){
+                if(!vis[start])
+                    vis[it]=1;
+                else vis[it]=0;
+                DFS(vis,it,adjls);
+            }
+            
+    //adj node is vis and of same color as parent (start)
+            else if(vis[start]==vis[it]) isBiptt=false;
+            
+            
+        }
+        
+    }
+    
+    bool BFS(vector<int> & vis, int start, vector<vector<int>> adjls){
+    queue<int> q;
+    q.push(start);
+        vis[start]=0;
+       while(!q.empty()){
+       auto tmp=q.front();
+       q.pop();
+       for(auto it: adjls[tmp])
+           {
+           if(vis[it]==-1){
+               q.push(it);
+               
+               if(!vis[tmp])
+                   vis[it]=1;
+               else vis[it]=0;
+           }
+           else {
+               if(vis[it]==vis[tmp]) return false;
+           }
+               
+           
+       }
+           
+           
+           
+       }
+        return true;
+        }
+        
+    
+    
+    bool isBipartite(vector<vector<int>>& graph) {
+        //visited vector will also store color 
+      //vis =-1 not visited
+        //vis=0 visited and colored as 0
+        //vis=1 visited and colored as 1
+
+        vector<int> vis(graph.size(),-1);
+        int i;
+        
+ //if any one component is non bipartite then entire graph is non bipartite
+        
+        for(i=0;i<graph.size();i++)
+            {
+            //by DFS
+            //if(vis[i]==-1){
+                //vis[i]=0;
+            
+                //DFS(vis,i,graph);
+               // }
+            
+           // if(!isBiptt)
+              //  return false;
+            
+            //by BFS
+            
+            if(vis[i]==-1){
+                
+                
+
+ if(!BFS(vis,i,graph)) return false;
+                }
+            
+            }
+       //if reached here then no component is non bipartite 
+        // hence original value (true) of isBiptt is not changed 
+        
+        //return isBiptt;
+        return  true;
+    }
+};
