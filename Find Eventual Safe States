@@ -1,0 +1,56 @@
+class Solution {
+public:
+    vector<int> eventualSafeNodes(vector<vector<int>>& graph) {
+      vector<vector<int>>  revGraphAdjLs(graph.size(),vector<int>());
+       int  n=graph.size();
+        vector<int> inDegree(n,0);
+        vector<int> vis(n,0);
+        int i;
+        
+        for(i=0;i<graph.size();i++){
+            for(auto it:graph[i]){
+revGraphAdjLs[it].push_back(i);
+            inDegree[i]++;
+        }
+            }
+        
+       
+
+        
+        
+    queue<int> q;
+        set<int> st;
+        
+        for(i=0;i<inDegree.size();i++)
+        if(!inDegree[i]) q.push(i);
+        
+        
+        
+        while(!q.empty()){
+            auto tmp=q.front();
+            q.pop();
+            st.insert(tmp);
+            for(auto it:revGraphAdjLs[tmp]){
+                inDegree[it]--;
+               if(!inDegree[it]) q.push(it);
+                
+                }
+            
+
+        }
+            
+            
+            vector<int> ans(st.begin(),st.end());
+        
+        
+        
+        return ans;
+        
+        
+        
+        
+        
+    
+        
+    }
+};
