@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+        int l=0,h=nums.size()-1,m;
+        int mini=INT_MAX;
+       while(l<=h){
+           m=(l+h)/2;
+        
+           
+           
+           if(nums[l]<=nums[m]){
+     //go in sorted part n compare with it's min
+               mini=min(mini,nums[l]);
+               
+               //then go in other half n do the same 
+               
+               l=m+1;
+               
+               
+           }
+           
+           else {
+               mini=min(mini,nums[m]);
+               h=m-1;
+               
+           }
+           
+           
+       }
+       return mini;
+    }
+};
