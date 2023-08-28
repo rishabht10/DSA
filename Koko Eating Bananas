@@ -1,0 +1,53 @@
+class Solution {
+public:
+    long eatingTime(vector<int> piles, int k){
+    long totalTime=0;
+    
+    for(auto it:piles)
+totalTime+=ceil((double)it/(double)k);
+        
+    return totalTime;
+    }
+    
+    int Max(vector<int> vec){
+        int maxi=INT_MIN;
+        for(auto it:vec)
+            maxi=max(it,maxi);
+        
+        return maxi;
+        
+    }
+    
+    
+    int minEatingSpeed(vector<int>& piles, int h) {
+       // int bananas=0;
+        //for(auto it:piles)
+        
+        
+        //vector<int> searchSpace(Max(piles),0);
+         //int i,j=1;
+         //for(i=0;i<searchSpace.size();i++){
+             // searchSpace[i]=j;
+             //j++;
+        // }
+        
+        
+        int l=1, hi=Max(piles),m;
+        while(l<=hi){
+            m=(l+hi)/2;
+            long t=eatingTime(piles,m);
+            //if(t<=h) return searchSpace[m];
+            
+            if(t<=h) hi=m-1;
+            else l=m+1;
+            
+            
+        }
+        return l;
+        
+            
+
+        
+        
+    }
+};
