@@ -1,0 +1,27 @@
+class Solution {
+public:
+    void helper(vector<int>& kvec,int n, int k,int i, vector<vector<int>>& ans){
+        if(kvec.size()==k){
+            //if k elements are selected push back to ans n return
+            ans.push_back(kvec);
+            return;
+        }
+        
+        if(i<=n){
+            //keep adding elements till they r within range
+            kvec.push_back(i);
+            helper(kvec,n,k,i+1,ans);
+            kvec.pop_back(); //will pop an element if k elements are completed n pushed
+            helper(kvec,n,k,i+1,ans); 
+            
+        }
+        
+    }
+    
+    vector<vector<int>> combine(int n, int k) {
+        vector<int> vec;
+        vector<vector<int>> ans;
+        helper(vec,n,k,1,ans);
+        return ans;
+    }
+};
