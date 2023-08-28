@@ -1,0 +1,62 @@
+class Solution {
+public:
+    bool partition(int ind, vector<int> nums, vector<int>& dp,int n){
+        
+        
+       if(ind>=n) return true;
+       
+    if(dp[ind]!=-1) return dp[ind];
+        
+    //first condition check
+     if(ind+1< n && nums[ind]==nums[ind+1]){
+     if(partition(ind+2,nums,dp,n))         return dp[ind]=true;
+         }
+    //second condition check
+    if(ind+2<n && nums[ind]==nums[ind+1] && nums[ind+1]==nums[ind+2]){
+        if(partition(ind+3,nums,dp,n))
+           return  dp[ind]=true;
+        
+    }
+        
+  //third condition check
+    if(ind+2<n && nums[ind]+1== nums[ind+1]&& nums[ind+1]+1==nums[ind+2]){
+        if(partition(ind+3,nums,dp,n))
+        return  dp[ind]=true;
+        
+    }
+        
+    //none of the above holds then false
+        return dp[ind]=false;
+        
+   
+         
+        
+        
+    }
+    
+    
+    bool validPartition(vector<int>& nums) {
+     vector<int> dp(nums.size()+1,-1);
+    int n =nums.size();
+    // return partition(0,nums,dp,n);
+        
+        dp[0]=true;
+        
+        int ind;
+        for(ind=0;ind<n;ind++){
+            bool case1=false;
+            bool case2=false;
+            bool case3=false;
+            
+            if(ind>0 && nums[ind]==nums[ind-1]) case1=dp[ind-1];
+            if(ind>1 && nums[ind]==nums[ind-1] && nums[ind-1]==nums[ind-2]) case2=dp[ind-2];
+            
+    if(ind>1 && nums[ind]==nums[ind-1]+1 && nums[ind-1]==nums[ind-2]+1) case3=dp[ind-2];
+            
+            
+           dp[ind+1]=case1 || case2 || case3 ; 
+        }
+        
+        return dp[n];
+    }
+};
