@@ -1,0 +1,32 @@
+
+
+class Solution
+{
+    public:
+    //Function to find minimum number of operations that are required 
+    //to make the matrix beautiful.
+    int findMinOpeartion(vector<vector<int> > matrix, int n)
+    {
+       int maxsum=INT_MIN;
+       //int row=0,col=0;
+        int i,j;
+        vector<int> rowsum;
+        for(i=0;i<n;i++){
+            int row=0,col=0;
+            for(j=0;j<n;j++){
+                row+=matrix[i][j];
+                col+=matrix[j][i];
+            }
+            
+           maxsum=max(maxsum,max(row,col));
+            rowsum.push_back(row);
+        }
+        
+        int diffsum=0;
+        for(auto it:rowsum)
+          diffsum+=maxsum-it;
+          
+          return diffsum;
+        
+    } 
+};
