@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<int> distinctDifferenceArray(vector<int>& nums) {
+        int i,j,pre,suf;
+        vector<int> diff;
+        unordered_set<int> s;
+        for(i=0;i<nums.size();i++)
+            {
+            for(j=0;j<=i;j++)
+              s.insert(nums[j]);
+            pre=s.size();
+          s.clear();
+            
+           for(j=i+1;j<=nums.size()-1;j++)
+       s.insert(nums[j]);
+            
+            suf=s.size();
+            s.clear();
+            
+            
+            diff.push_back(pre-suf);
+    }
+        return diff;
+        }
+};
