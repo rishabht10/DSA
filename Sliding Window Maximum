@@ -1,0 +1,29 @@
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        int l=0,r=0;
+        multiset<int> mlst;
+        
+        vector<int> ans;
+        
+        
+        while(r<nums.size()){
+            mlst.insert(nums[r]);
+            if(mlst.size()==k){
+             ans.push_back(*mlst.rbegin());
+    
+        mlst.erase(mlst.find(nums[l]));
+                l++;
+                
+                
+            }
+            
+            r++;
+            
+            
+        }
+        return ans;
+        
+        
+    }
+};
