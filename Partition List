@@ -1,0 +1,95 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteSmall(ListNode* trav){
+       auto tmp=trav->next;
+        trav->next=tmp->next;
+        if(tmp->next)
+        tmp->next=NULL;
+        
+        return tmp;
+        
+    }
+    
+    ListNode* insertAfter(ListNode* partition,ListNode* toInsert, bool& firstX,ListNode*& start){
+        if(firstX){
+            //return toInsert;
+            firstX=false;
+            start=toInsert;
+            return toInsert;
+            
+            }
+        
+            
+        
+       auto tmp=partition->next;
+        
+partition->next=toInsert;
+        toInsert->next=tmp;
+        return toInsert;
+        
+    
+    }
+    
+    ListNode* partition(ListNode* head, int x) {
+        if(!head) return head;
+        
+        auto trav=head;
+        bool firstX=false;
+        ListNode* partition=NULL;
+        ListNode* start=NULL;
+        
+      if(head->val>=x) {
+          partition=head;
+          firstX=true;
+          }
+        
+        
+        while(trav!=NULL){
+            
+            
+        if(!partition && trav->next!=NULL && trav->next->val>=x){
+            partition=trav;
+            trav=trav->next;
+            
+            }
+            else if(partition && trav->next!=NULL && trav->next->val< x){
+                
+                partition=insertAfter(partition,deleteSmall(trav),firstX,start);
+                
+                
+            }   
+            else if(!trav->next) break;
+            else trav=trav->next;
+            
+            //else if(!trav->next && trav->next->val<x)
+              
+            
+            //trav=trav->next;
+            
+            
+        }
+        
+        
+        
+        if(start){ 
+            
+            partition->next=head;
+            
+            return start;
+                  
+                  
+                  }
+        
+        return head;
+    }
+};
