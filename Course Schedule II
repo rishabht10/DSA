@@ -1,0 +1,54 @@
+class Solution {
+public:
+    vector<int> findOrder(int numCourses, vector<vector<int>>& prerequisites) {
+        vector<int> vis(numCourses,0);
+        vector<int> inDegree(numCourses,0);
+        vector<int> adjls[numCourses];
+        vector<int> ans;
+         for(auto it:prerequisites)
+             inDegree[it[0]]++;
+        
+        for(auto it:prerequisites)
+            adjls[it[1]].push_back(it[0]);
+        
+        queue<int> q;
+        
+        for(int i=0;i<numCourses;i++){
+            if(!inDegree[i]){
+              q.push(i);
+                vis[i]=1;
+                
+            } 
+        }
+        
+        while(!q.empty()){
+            auto tmp=q.front();
+            q.pop();
+            ans.push_back(tmp);  
+            
+            
+            for(auto it:adjls[tmp])
+                inDegree[it]--;
+            
+             for(int i=0;i<numCourses;i++){
+                 
+            if(!inDegree[i] && !vis[i]){ 
+              q.push(i);
+                vis[i]=1;
+                
+            }
+                 
+        }
+            
+          
+        }
+        
+        if(ans.size()!=numCourses) ans.clear();
+        
+
+        return ans;
+            
+        
+        
+    }
+};
