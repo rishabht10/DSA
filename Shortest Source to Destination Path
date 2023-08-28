@@ -1,0 +1,48 @@
+// User function Template for C++
+
+class Solution {
+  public:
+    int shortestDistance(int N, int M, vector<vector<int>> A, int X, int Y) {
+        if(!A[0][0]) return -1;
+        if(!X && !Y) return 0;
+        int nrow,ncol,p;
+        vector<int> drow={1,-1,0,0};
+        vector<int> dcol={0,0,1,-1};
+        int ans=INT_MAX;
+        vector<vector<int>> vis(N,vector<int>(M,0));
+        queue<pair<pair<int,int>,int>> q;
+        
+        q.push({{0,0},0});
+        vis[0][0]=1;
+        
+        while(!q.empty()){
+            int row=q.front().first.first;
+            int col=q.front().first.second;
+            int dist=q.front().second;
+            
+            q.pop();
+            
+            for(p=0;p<4;p++){
+                
+                nrow=row+drow[p];
+                ncol=col+dcol[p];
+                
+                if(nrow>=0 && nrow<N && ncol>=0 && ncol<M && A[nrow][ncol]==1 && !vis[nrow][ncol]){
+                    if(nrow==X && ncol==Y){
+                        ans=min(ans,dist+1);
+                        return  ans;
+                    }
+                    q.push({{nrow,ncol},dist+1});
+                    vis[nrow][ncol]=1;
+                }
+                
+                
+            }
+            
+        }
+        return -1;
+        
+        
+        
+    }
+};
