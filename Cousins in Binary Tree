@@ -1,0 +1,73 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    
+    vector<pair<TreeNode*,int>>lvlOrderTrav(TreeNode* root, map<TreeNode*,TreeNode*>& parent,int x, int y){
+        queue<TreeNode*> q;
+        vector<pair<TreeNode*,int>> cousins;
+        TreeNode * tmp;
+        int size,lvl=0;
+        q.push(root);
+        while(!q.empty()){
+         size=q.size();
+            while(size){
+                 tmp=q.front();
+            q.pop();
+            if(tmp->left){
+                q.push(tmp->left);
+                parent[tmp->left]=tmp;
+            }
+            
+            if(tmp->right){
+                q.push(tmp->right);
+                parent[tmp->right]=tmp;
+            }
+            
+            if(tmp->val==x || tmp->val==y)
+                cousins.push_back({tmp,lvl});
+                
+                size--;
+            }
+            
+           lvl++;
+            
+            
+        }
+        
+        return cousins;
+        
+        
+        
+        
+    }
+    
+    bool isCousins(TreeNode* root, int x, int y) {
+       map<TreeNode*,TreeNode*> parent;
+        vector<pair<TreeNode*,int>> cousins(lvlOrderTrav(root,parent,x,y));
+        
+        if(cousins[0].second==cousins[1].second && parent[cousins[0].first]!= parent[cousins[1].first]) return true;
+        
+
+        
+        
+        
+        
+                return false;
+        
+        
+        
+        
+        
+        
+    }
+};
