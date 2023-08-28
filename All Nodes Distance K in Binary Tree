@@ -1,0 +1,82 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+
+    void parents(unordered_map<TreeNode*, TreeNode*>& parent, TreeNode* root){
+     queue<TreeNode*> q;
+     q.push(root);
+     TreeNode* tmp;
+     while(!q.empty()){
+     tmp=q.front();
+     q.pop();
+     if(tmp->left){
+         parent[tmp->left]=tmp;
+         q.push(tmp->left);
+         
+     }
+     if(tmp->right){
+         parent[tmp->right]=tmp;
+         q.push(tmp->right);
+
+     }
+     }
+
+    }
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int k) {
+        unordered_map<TreeNode*, TreeNode*> parent;
+        parents(parent, root);
+        int dis=0,size;
+        unordered_map<TreeNode*, bool> vis;
+        vector<int> ans;
+        TreeNode *tmp;
+        queue<TreeNode*> q;
+
+        q.push(target);
+        vis[target]=true;
+        while(!q.empty()){
+            size=q.size();
+         if(dis ==k)
+         break;
+         dis++;
+         while(size){
+         tmp=q.front();
+         q.pop();
+         if(tmp->left && !vis[tmp->left]){
+         q.push(tmp->left);
+         vis[tmp->left]=true;
+         }
+         if(tmp->right && !vis[tmp->right]){
+         q.push(tmp->right);
+         vis[tmp->right]=true;
+         }
+            if(parent[tmp] && !vis[parent[tmp]]){
+         q.push(parent[tmp]);
+         vis[parent[tmp]]=true;
+         }
+
+             size--;
+         }
+         
+        
+        
+         
+
+
+        }
+         while(!q.empty()){
+             tmp=q.front();
+             q.pop();
+             ans.push_back(tmp->val);
+         }
+        return ans;
+    }
+    
+};
