@@ -1,0 +1,64 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        
+ if(!list1) return list2;
+ if(!list2) return list1;
+            auto trav1=list1;
+
+   auto trav2=list2;
+   ListNode* curr;
+   ListNode* start;
+
+    if(trav1->val<=trav2->val){
+       start=trav1;
+       trav1=trav1->next;
+    }
+       else {
+           start=trav2;
+           trav2=trav2->next;
+       }
+
+    curr=start;
+
+    while(trav1 && trav2){
+        if(trav1->val<=trav2->val){
+            curr->next=trav1;
+            trav1=trav1->next;
+            curr=curr->next;
+        }
+
+        else{
+            curr->next=trav2;
+            trav2=trav2->next;
+            curr=curr->next;
+        }
+
+    }
+
+    while(trav1){
+        curr->next=trav1;
+        trav1=trav1->next;
+        curr=curr->next;
+    }
+
+    while(trav2){
+        curr->next=trav2;
+        trav2=trav2->next;
+       curr=curr->next;
+    }
+
+    return start;
+        
+    }
+};
