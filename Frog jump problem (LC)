@@ -1,0 +1,52 @@
+class Solution {
+public:
+    bool jump(int ind,int n,int k,vector<vector<int>>& dp,unordered_map<int,int>& pos,vector<int>& stones){
+        if(ind==n-1) return true;
+        
+        if(k<=0) return false;
+        
+        if(dp[ind][k]!=-1) return dp[ind][k];
+        
+        if(pos.find(stones[ind]+k-1)!=pos.end()){
+            int newInd=pos[stones[ind]+k-1];
+            if(jump(newInd,n,k-1,dp,pos,stones))
+               return  dp[ind][k]=true;
+            
+        }
+        
+        if(pos.find(stones[ind]+k)!=pos.end()){
+             int newInd=pos[stones[ind]+k];
+            if(jump(newInd,n,k,dp,pos,stones))
+               return dp[ind][k]=true;
+            
+        }
+        
+        if(pos.find(stones[ind]+k+1)!=pos.end()){
+             int newInd=pos[stones[ind]+k+1];
+            if(jump(newInd,n,k+1,dp,pos,stones))
+                return dp[ind][k]=true;
+            
+        }
+        
+       return  dp[ind][k]=false;
+        
+        
+    }
+    
+    bool canCross(vector<int>& stones) {
+        if(stones[1]-stones[0]!=1) return false;
+        
+        int n=stones.size();
+        vector<vector<int>> dp(n+1,vector<int>(n+1,-1));
+        
+        unordered_map<int,int> pos;
+        
+        
+        int i;
+        for(i=0;i<n;i++)
+            pos[stones[i]]=i;
+        
+        return jump(1,n,1,dp,pos,stones);
+        
+    }
+};
