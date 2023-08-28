@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int binarySearch(vector<int> vec, int target)   {
+        int l=0, h=vec.size()-1,m;
+        while(l<=h){
+            m=l+(h-l)/2;
+            if(vec[m]==target)
+                return m;
+            else if(target>vec[m])
+                l=m+1;
+            else h=m-1;
+        }
+        return -1;
+        
+        
+    } 
+    
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        
+        for(auto it:matrix){
+            if(binarySearch(it,target)!=-1)
+                return true;
+        }
+        return false;
+    }
+};
