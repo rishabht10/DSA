@@ -1,0 +1,44 @@
+class MyHashSet {
+    
+    vector<int> hashSet;
+    
+    int searchSet(int key){
+        for(int i=0;i<hashSet.size();i++){
+            if(key==hashSet[i])
+                return i;
+        }
+        return -1;
+        
+        
+    }
+    
+public:
+    MyHashSet() {
+        
+    }
+    
+    void add(int key) {
+        if(searchSet(key)==-1)
+            hashSet.push_back(key);
+    }
+    
+    void remove(int key) {
+        if(searchSet(key)!=-1)
+            hashSet.erase(hashSet.begin()+searchSet((key)));
+    }
+    
+    bool contains(int key) {
+        if(searchSet(key)==-1)
+            return false;
+        
+         return true;
+    }
+};
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet* obj = new MyHashSet();
+ * obj->add(key);
+ * obj->remove(key);
+ * bool param_3 = obj->contains(key);
+ */
