@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int mod=1e9+7;
+    long long playlists(int n,int goal,int k, vector<vector<long long>>& dp){
+        if(n==0&&goal==0) return 1;
+        if(n==0||goal==0) return 0;
+        
+        if(dp[n][goal]!=-1) return dp[n][goal];
+        long long newSong=playlists(n-1,goal-1,k,dp)*n;
+        long long existing=playlists(n,goal-1,k,dp)*max((n-k),0);
+       return dp[n][goal]=(newSong+existing)%mod;
+        
+//selecting new song from total n available + selecting a song already added to the playlist
+        
+        
+    }
+    
+    int numMusicPlaylists(int n, int goal, int k) {
+        vector<vector<long long>> dp(n+1,vector<long long>(goal+1,-1));
+        return (long long) playlists(n,goal,k,dp);
+        
+    }
+};
