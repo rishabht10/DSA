@@ -1,0 +1,28 @@
+class Solution
+{
+    long long int m=1e9+7;
+    //memoization 
+    public:
+    //Function to find the nth catalan number.
+    long long int catalan(int  n, vector<long long int>& dp){
+        if(n==0 || n==1) return 1;
+        
+        if(dp[n]!=0) return dp[n];
+        
+        int i;
+        
+        
+        for(i=0;i<n;i++)
+         dp[n]+=(catalan(i,dp)*catalan(n-i-1,dp))%m;
+         
+        return dp[n]=dp[n]%m;
+        
+    }
+    
+    int findCatalan(int n) 
+    {
+        vector<long long int> dp(n+1,0);
+        
+       return catalan(n,dp); 
+    }
+};
