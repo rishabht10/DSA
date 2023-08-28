@@ -1,0 +1,42 @@
+class Solution {
+public:
+    
+   
+    
+    int maximalNetworkRank(int n, vector<vector<int>>& roads) {
+       vector<vector<int>> adjLs(n,vector<int>());
+        map<pair<int,int>,bool> direct;
+        
+        for(auto it:roads){
+            adjLs[it[0]].push_back(it[1]);
+        adjLs[it[1]].push_back(it[0]);
+        }
+        
+        for(auto it :roads){
+            direct[{it[0],it[1]}]=true;
+            direct[{it[1],it[0]}]=true;
+            
+        }
+        
+        int i,j;
+        int maxNet=INT_MIN;
+        for(i=0;i<n;i++){
+            for(j=0;j<n;j++){
+                if(i!=j){
+                    
+                int totalRoads=adjLs[i].size()+adjLs[j].size();
+                if(direct[{i,j}]) totalRoads-=1;
+                maxNet=max(maxNet,totalRoads);
+                    
+                    
+                }
+                
+            }
+                
+        }
+            
+       return maxNet;
+        
+        
+    }
+};
