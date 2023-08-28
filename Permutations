@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int fact(int n){
+        if(n==1) return 1;
+        
+        return n*fact(n-1);
+        
+    }
+    
+    vector<vector<int>> permute(vector<int>& nums) {
+       int k=fact(nums.size())-1;
+        vector<vector<int>> ans;
+        ans.push_back(nums);
+        
+        while(k){
+         next_permutation(nums.begin(),nums.end());
+            ans.push_back(nums);
+            k--;
+            
+        }
+        return ans;
+    }
+};
