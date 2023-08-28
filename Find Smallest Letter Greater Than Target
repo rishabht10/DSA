@@ -1,0 +1,23 @@
+class Solution {
+public:
+    char nextGreatestLetter(vector<char>& letters, char target) {
+        int mini=INT_MAX;
+        int charIntVal;
+        char ans;
+        int targetIntVal=target-'0';
+       for(auto it: letters){
+           charIntVal=it-'0';
+           if(charIntVal>targetIntVal && charIntVal-targetIntVal<mini) {
+               mini=charIntVal-targetIntVal;
+               ans=it;
+               
+               
+           
+           
+           
+       }
+           }
+           if(mini==INT_MAX) return letters[0];
+           else return ans;
+    }
+};
