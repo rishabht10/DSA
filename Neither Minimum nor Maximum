@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int findNonMinOrMax(vector<int>& nums) {
+//         int i,mini=INT_MAX,maxi=INT_MIN, minidx,maxidx;
+        
+        if(nums.size()<=2) return -1;
+        
+//         for(i=0;i<nums.size();i++){
+//             if(nums[i]>maxi){
+//                 maxi=nums[i];
+//                 maxidx=i;
+//             }
+//             if(nums[i]<mini){
+//                 mini=nums[i];
+//                 minidx=i;
+//             }
+            
+            
+//         }
+        
+//         if()
+        
+        sort(nums.begin(),nums.end());
+        return nums[1];
+        
+        
+        
+        
+    }
+};
