@@ -1,0 +1,87 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+void findParentAndStart (TreeNode*       root, map<TreeNode*, TreeNode*>& parent, TreeNode* & infStart, int sval){
+        
+        queue<TreeNode*> q;
+        q.push(root);
+        
+    while(!q.empty()){
+          auto tmp=q.front();
+            q.pop();
+            
+  if(tmp->val==sval) infStart=tmp;
+          
+if(tmp->left){
+        q.push(tmp->left);
+        parent[tmp->left]=tmp;
+                     
+            }
+            
+           if(tmp->right){
+        q.push(tmp->right);
+        parent[tmp->right]=tmp;
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    int amountOfTime(TreeNode* root, int start) {
+        map<TreeNode*, TreeNode*> parent;
+       TreeNode* infectionRoot;
+        
+        //find parent pointers and infection start using Tree BFS
+  findParentAndStart(root,parent,infectionRoot,start);
+        
+     queue<pair<TreeNode*,int>> q;
+        map<TreeNode*,bool> vis;
+        int time;
+       q.push({infectionRoot,0});
+        vis[infectionRoot]=true;
+        
+        
+//graph BFS on Tree
+  while(!q.empty()){
+            
+     auto tmp=q.front().first;
+     time=q.front().second;
+            q.pop();
+            
+  if(tmp->left && !vis[tmp->left]){
+      
+        q.push({tmp->left,time+1});
+         vis[tmp->left]=true;
+    }
+      
+if(tmp->right && !vis[tmp->right]){
+    
+    q.push({tmp->right,time+1});
+        vis[tmp->right]=true;
+                                       }
+                                       
+                                       
+            
+      if(parent[tmp] && !vis[parent[tmp]]){
+                              q.push({parent[tmp],time+1});
+        vis[parent[tmp]]=true;
+          }
+            
+            
+        }
+        return time;
+           
+    }
+};
