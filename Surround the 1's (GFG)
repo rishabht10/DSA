@@ -1,0 +1,33 @@
+
+class Solution {
+public:
+    int Count(vector<vector<int> >& matrix) {
+        vector<int> drow={0,0,1,-1,1,1,-1,-1};
+        vector<int> dcol={1,-1,0,0,1,-1,1,-1};
+        
+        int i,j;
+        int cnt0ij,cnt1=0;
+        
+        for(i=0;i<matrix.size();i++){
+            for(j=0;j<matrix[0].size();j++){
+                if(matrix[i][j]==1){
+                cnt0ij=0;
+                int p;
+                for(p=0;p<8;p++){
+                    int nrow=i+drow[p];
+                    int ncol=j+dcol[p];
+                    
+                    if(nrow>=0 && nrow<matrix.size() && ncol>=0 && ncol<matrix[0].size() && !matrix[nrow][ncol])
+                    cnt0ij++;
+                }
+                
+                if(cnt0ij!=0 && cnt0ij%2==0) cnt1++;
+                }
+                
+                
+            }
+        }
+        
+        return cnt1;
+    }
+};
