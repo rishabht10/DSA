@@ -1,0 +1,22 @@
+class Solution {
+public:
+    double helper(double x,long long n){
+        if(n==1) return x;
+        
+        if(n%2) return x*helper(x,n-1);
+        else return helper(x*x,n/2);
+        
+    }
+    
+    double myPow(double x, int n) {
+        if(!n) return 1;
+        
+        if(n<0){
+            long long N=(long long) -1*n;
+            return (double)(1.0)/(double)(helper(x,N));
+            
+            
+        }
+        else return helper(x,n);
+    }
+};
