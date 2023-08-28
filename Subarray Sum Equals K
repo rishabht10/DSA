@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        map<int,int> mpp;
+       mpp.insert({0,1});
+         int prefsum=0,countsub=0;
+        for(auto it: nums){
+            prefsum+=it;
+            countsub+=mpp[prefsum-k];
+            mpp[prefsum]+=1;
+        }
+        return countsub;
+        
+        
+    }
+};
