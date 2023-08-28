@@ -1,0 +1,44 @@
+class Solution {
+public:
+    bool is2(vector<int> friends){
+        for(auto it:friends){
+            if(it==2)
+                return true;
+        }
+        return false;
+        
+    }
+    
+    vector<int> circularGameLosers(int n, int k) {
+        int i=1;
+        int pass=1;
+        int pos;
+        
+        vector<int> friends(n+1,0),ans;
+        friends[1]=1;
+        
+       
+         while(!is2(friends)) 
+         {
+             pos=(i+pass*k)%n;
+             
+             if(pos)
+            friends[pos]++;
+             else
+                 friends[n]++;
+             
+             i=pos;
+             pass++;
+             
+             
+             
+         }
+        
+        for(i=1;i<n+1;i++){
+            if(friends[i]==0)
+                ans.push_back(i);
+        }
+        return ans;
+        
+    }
+};
