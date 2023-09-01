@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int matrixSum(vector<vector<int>>& nums) {
+        set<int> st;
+        int i,j,k;
+        long int score=0;
+        
+        //O(m*n*n) since constraints are less
+        while(k<nums[0].size()){
+        int maxi1=INT_MIN;
+        
+        for(i=0;i<nums.size();i++){
+            int maxi=INT_MIN;
+            int idx;
+            for(j=0;j<nums[0].size();j++){
+                if(nums[i][j]!=-1){
+                if(nums[i][j]>maxi){
+                    if(maxi==INT_MIN){
+                        maxi=nums[i][j];
+                        idx=j;
+                        nums[i][j]=-1;
+                    }
+                    else {
+                        nums[i][idx]=maxi;
+                        maxi=nums[i][j];
+                        idx=j;
+                        nums[i][j]=-1;
+                        
+                    }
+                }
+                }
+                
+            }
+            maxi1=max(maxi1,maxi);
+        }
+            score+=maxi1;
+            k++;
+            
+        }
+        return score;
+    }
+};
