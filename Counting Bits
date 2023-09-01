@@ -1,0 +1,29 @@
+class Solution {
+//O(nlogn)
+public:
+    
+    int numberOf1s(int n){
+        int cnt1=0;
+        while(n){
+            
+            if(n%2==1) cnt1++;
+            n/=2;
+            
+        }
+        return cnt1;
+        
+        
+    }
+    
+    
+    vector<int> countBits(int n) {
+        vector<int> ans;
+        int i=0;
+        while(i<n+1) {
+            ans.push_back(numberOf1s(i));
+            i++;
+            
+        } 
+        return ans;
+    }
+};
