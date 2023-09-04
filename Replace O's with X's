@@ -1,0 +1,65 @@
+class Solution{
+public:
+    vector<vector<char>> fill(int n, int m, vector<vector<char>> mat)
+    {
+        vector<vector<int>> vis(n,vector<int>(m,0));
+        queue<pair<int,int>> q;
+        
+        int i,j;
+        for(i=0;i<n;i++){
+            if(mat[i][0]=='O' && !vis[i][0]){
+                vis[i][0]=1;
+                 q.push({i,0});
+            }
+            if(mat[i][m-1]=='O' && !vis[i][m-1]){
+                vis[i][m-1]=1;
+           
+            q.push({i,m-1});
+            }
+            
+        }
+        
+        for(j=0;j<m;j++){
+            if(mat[0][j]=='O' && !vis[0][j]){
+                vis[0][j]=1;
+                 q.push({0,j});
+            }
+            if(mat[n-1][j]=='O' && !vis[n-1][j]){
+                vis[n-1][j]=1;
+           
+            q.push({n-1,j});
+            }
+            
+        }
+        
+        vector<int> drow={0,0,-1,1};
+        vector<int> dcol={1,-1,0,0};
+        
+        //BFS
+        
+        while(!q.empty()){
+            int row=q.front().first;
+            int col=q.front().second;
+            q.pop();
+            
+            int p;
+            for(p=0;p<4;p++){
+                int nrow=row+drow[p];
+                int ncol=col+dcol[p];
+                
+                if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && !vis[nrow][ncol] && mat[nrow][ncol]=='O'){
+                    q.push({nrow,ncol});
+                    vis[nrow][ncol]=1;
+                }
+                
+            }
+            
+        }
+        
+        for(i=0;i<n;i++) for(j=0;j<m;j++) if(!vis[i][j] && mat[i][j]=='O' ) mat[i][j]='X';
+                
+        return mat;
+        
+        
+    }
+};
