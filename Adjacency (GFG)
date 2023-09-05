@@ -1,0 +1,13 @@
+class Solution{
+public:
+vector<vector<int>> printGraph(int V, vector<pair<int,int>>edges) {
+        vector<vector<int>> adjLs(V,vector<int>());
+        
+        for(auto it:edges) {
+            adjLs[it.first].push_back(it.second);
+            adjLs[it.second].push_back(it.first);
+            
+        }
+        return adjLs;
+    }
+};
