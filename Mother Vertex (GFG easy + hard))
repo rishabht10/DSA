@@ -1,0 +1,72 @@
+class Solution 
+{
+    public:
+    //Function to find a Mother Vertex in the Graph.
+    
+    //O(V*(V+E)) brute
+    //by doing BFS/DFS on all nodes 
+    
+    
+    //O(V+E) optimized 
+    //by using "condensed graph" and "out time" concept
+    //node with Max outime will be a possible candidate for mother vertex
+    //after finding node with greatest out time check if it is possible to visit all rem vertices form it
+    //if possible the it's ans else -1
+    
+      void BFS(vector<int> adj[],int start,int V,int& cnt){
+        vector<int> vis(V,0);
+        queue<int> q;
+        q.push(start);
+        
+        cnt--;
+        vis[start]=1;
+        
+        while(!q.empty()){
+            auto tmp=q.front();
+            q.pop();
+            for(auto it:adj[tmp]){
+                if(!vis[it]){
+                    q.push(it);
+                    
+                    cnt--;
+                    vis[it]=1;
+                }
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    
+	int findMotherVertex(int V, vector<int>adj[])
+	{
+	   vector<int> order;
+	    vector<bool> vis(V, 0);
+	    
+	    function<void(int)> dfs1 = [&](int node) {
+	        vis[node] = 1;
+	        
+	        for(auto child : adj[node])
+	            if(!vis[child])
+	                dfs1(child);
+	                
+	        order.push_back(node);
+	    };
+	    
+	    for(int i = 0; i < V; i++){
+	        if(!vis[i])
+	            dfs1(i);
+	    }
+	    
+	    
+	    int rem = V;
+	    
+	    BFS(adj,order.back(),V,rem);
+	    if(!rem) return order.back();
+	    return -1;
+	    
+	}
+
+};
