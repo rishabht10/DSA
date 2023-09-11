@@ -1,0 +1,43 @@
+class Solution {
+public:
+    vector<vector<int>> groupThePeople(vector<int>& groupSizes) {
+        
+        //map to store the group sizes along with all the elements(ppl)
+        //which belongs to them
+        //size_i : {ID1,ID2,ID3,....}
+        
+        map<int,vector<int>> grp;
+        
+        int i;
+        for(i=0;i<groupSizes.size();i++) grp[groupSizes[i]].push_back(i);
+        
+        vector<int> vec;
+        vector<vector<int>> ans;
+        
+        
+        //iterate over the each vector containing ppl IDs in the map
+        //push them in a vector of size equal to the corresponding size_i
+        //once the vector into ans vec on becoming equal to the size_i
+        //then empty this temp vector and repeat the same
+        
+        for(auto it:grp){
+                
+            for(auto it1 : it.second){
+                if(vec.size()>=it.first) {
+                    ans.push_back(vec);
+                    vec.clear();
+                }
+                
+                vec.push_back(it1);
+            }
+            ans.push_back(vec);
+            vec.clear();
+            
+            
+        }
+        return ans;
+            
+            
+        
+    }
+};
