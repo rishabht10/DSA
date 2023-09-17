@@ -1,0 +1,41 @@
+class Solution{
+public:
+
+    bool partition(int N,int ind, int sum, int arr[],int target){
+        
+        if(ind==N+1){
+               
+            if(sum==target) return true;
+             return false;
+            
+        }
+        // if(dp[ind]!=-1) return dp[ind];
+        
+        
+        //pick
+        sum+=arr[ind];
+       if(partition(N,ind+1,sum,arr,target)) return  true;
+       
+        //not pick
+        sum-=arr[ind];
+       if( partition(N,ind+1,sum,arr,target)) return true;
+       
+       return false;
+        
+    
+    }
+
+    int equalPartition(int N, int arr[])
+    {
+        // vector<int> dp(N, -1);
+        
+      int target=0;
+      int i;
+      for(i=0;i<N;i++) target+=arr[i];
+      
+      if(target%2!=0) return 0;
+      
+    return partition(N,0,0,arr,target/2);
+    
+        
+    }
