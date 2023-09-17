@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int minDeletions(string s) {
+        unordered_map<char,int> freqMap;
+        for(auto it:s) freqMap[it]++;
+        
+        unordered_set<int> st;
+        int dec;
+        dec=0;
+        for(auto it:freqMap){
+            int freq=it.second;
+            if(st.find(freq)!=st.end()){
+                
+                while(st.find(freq)!=st.end()){
+                    dec++;
+                   freq--;
+                }
+            
+                
+            }
+            if(freq)
+            st.insert(freq);
+            
+        }
+        
+        return dec;
+        
+    }
+};
