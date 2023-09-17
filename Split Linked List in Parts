@@ -1,0 +1,76 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    vector<ListNode*> splitListToParts(ListNode* head, int k) {
+        vector<ListNode*> grp(k,NULL);
+        
+        
+        
+        auto trav=head;
+        int N=0;
+        while(trav){
+            N++;
+            trav=trav->next;
+        }
+    
+        
+        int mod=N%k; //no. of Ceils
+    
+        
+    
+   int  cl=ceil((double)N/(double)k);
+    int flr=floor((double)N/(double)k);
+        
+        
+        trav=head;
+
+        int i,n;
+        i=1;
+        n=0;
+        while(trav){
+            n++;
+            if(i<=mod){
+                if(n==cl && i<k){
+                    grp[i]=trav->next;
+                   
+                    trav->next=NULL;
+                    trav=grp[i];
+                    i++;
+                    n=0;
+                    
+                }
+        else trav=trav->next;
+                
+            }
+            else{
+                if(n==flr && i<k){
+                    grp[i]=trav->next;
+                    trav->next=NULL;
+                    trav=grp[i];
+                    i++;
+                    n=0;
+                    
+                    
+                }
+               else trav=trav->next; 
+                
+                
+                
+            }
+            
+            
+        }
+        
+        grp[0]=head;
+       return grp;
+    }
+};
