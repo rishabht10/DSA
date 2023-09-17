@@ -1,0 +1,22 @@
+class Solution{
+  public:
+    
+    void preOrder(Node* root,vector<int>& traversal){
+        if(!root) return;
+        traversal.push_back(root->data);
+        preOrder(root->left,traversal);
+        preOrder(root->right,traversal);
+    }
+  
+    // The given root is the root of the Binary Tree
+    // Return the root of the generated BST
+    Node *binaryTreeToBST (Node *root)
+    {
+        vector<int> traversal;
+        preOrder(root,traversal);
+        sort(traversal.begin(),traversal.end());
+        
+        
+        
+    }
+};
