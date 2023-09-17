@@ -1,0 +1,89 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    
+    vector<ListNode*> revList(ListNode* start){
+        auto  prev=start;
+        auto  first=start;
+        auto forw=prev->next;
+        vector<ListNode*> vec;
+        while(forw){
+            auto tmp=forw->next;
+            forw->next=prev;
+            prev=forw;
+            forw=tmp;
+            
+            
+        }
+        
+        first->next=NULL;
+        vec.push_back(prev);
+        vec.push_back(first);
+        return vec;
+        
+        
+    }
+    
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        if(!head->next || left==right) return head;
+        ListNode* beg=NULL; // to be passed to revList
+        ListNode * preLeft,*postRight; 
+        if(left==1) beg=head; 
+        auto trav=head;
+        int n;
+        n=0;
+        
+        vector<ListNode*> rev;
+        while(trav){
+            n++;
+            if(left-1!=0 && n==left-1) {
+                preLeft=trav;
+              
+                beg=preLeft->next;
+                preLeft->next=NULL;
+                trav=beg;
+            }
+            
+            else if(n==right) {
+                postRight=trav->next;
+                trav->next=NULL;
+                trav=trav->next;
+            }
+            
+            else trav=trav->next;
+            
+        }
+        //edge case 1 : left=start node  n right =end node
+        if(left==1 && !postRight) return revList(beg)[0];
+        
+        else if(left==1){
+            //edge case 2 : left is start node n right can be any node
+            
+            rev=revList(beg);
+            rev[1]->next=postRight;
+            return rev[0];
+                        
+        }
+        
+        //case 3: left and right both are any node in between
+        
+        rev=revList(beg);
+        preLeft->next=rev[0];
+        rev[1]->next=postRight;
+        
+        return head;
+          
+           
+        
+        
+    }
+};
