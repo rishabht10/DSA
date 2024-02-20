@@ -1,0 +1,21 @@
+//max subsequence sum
+//top down
+#include <bits/stdc++.h>
+using namespace std;
+
+int subSeqSum(int i,int n,vector<int>& arr,vector<int>&dp){
+    // if(i==0) return arr[0];
+    if(i<0) return 0;
+    if(dp[i]!=-1) return dp[i];
+    
+    return dp[i]= max((arr[i]+subSeqSum(i-2,n,arr,dp)),subSeqSum(i-1,n,arr,dp));
+    
+}
+
+int main() {
+    vector<int> arr1={1,4,2,-10,10,5};
+    vector<int> dp(arr1.size(),-1);
+    cout<<subSeqSum(arr1.size()-1,arr1.size(),arr1,dp);
+    // cout<<subSeqSum(0,arr1.size(),arr1,dp);
+    return 0;
+}
