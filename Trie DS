@@ -1,0 +1,123 @@
+#include<bits/stdc++.h>
+using namespace std;
+//Raw Trie
+class TrieNode{
+    public :
+    bool fl;
+    TrieNode* ref[26];
+    TrieNode(){
+        fl=false;
+    }
+};
+
+class Trie{
+   
+   public:
+   TrieNode* root;
+    Trie(){
+        root=NULL;
+    }
+    
+    TrieNode* insertHelper(TrieNode* root, string word ,int i){
+        // cout<<word[i]<<endl;
+        if(!root){
+            auto New=new TrieNode();
+            New->ref[word[i]-'a']=new TrieNode();
+            root=New;
+            New=NULL;
+         insertHelper(root->ref[word[i]-'a'],word,i+1);
+         return root;
+            
+        }
+        
+        if(i>word.size()-1){
+            root->fl=true;
+            return NULL;
+        }
+        
+        if(!root->ref[word[i]-'a']){
+            root->ref[word[i]-'a']=new TrieNode();
+            return insertHelper(root->ref[word[i]-'a'],word,i+1);
+        }
+        
+       return insertHelper(root->ref[word[i]-'a'],word,i+1);
+    }
+    
+    void insert(string word){
+      if(!root)
+       root= insertHelper(root,word,0);
+       
+       insertHelper(root,word,0);
+        
+    }
+    
+    bool searchHelper(TrieNode* root, string word,int i){
+        //  cout<<word[i]<<endl;
+        if(!root){
+            return false;
+        }
+        
+        if(i==word.size() && root->fl) return true;
+        else if(i==word.size()) return false;
+        
+        if(!root->ref[word[i]-'a']) return false;
+        // cout<<"call";
+        return searchHelper(root->ref[word[i]-'a'],word,i+1);
+        
+    }
+    
+    bool startsWithHelper(TrieNode* root, string word,int i){
+        //  c
+        if(!root){
+        //   cout<<word[i]<<endl;
+            return false;
+        }
+        
+        if(i==word.size() && !root->fl){
+            //  cout<<word[i]<<endl;
+         return true;
+        }
+        else if(i==word.size()) {
+            // cout<<word[i]<<endl;
+            return false;
+        }
+        
+        if(!root->ref[word[i]-'a']){
+            // cout<<word[i]<<endl;
+        return false;
+        }
+        // cout<<"call";
+        // cout<<word[i]<<endl;
+        return startsWithHelper(root->ref[word[i]-'a'],word,i+1);
+        
+    }
+    
+    bool search(string word){
+        return searchHelper(root,word,0);
+    }
+    
+    bool startsWith(string word){
+        return startsWithHelper(root,word,0);
+    }
+};
+
+int main(){
+    Trie tr;
+    tr.insert("rishabht");
+    cout<<"inserted"<<endl;
+    
+    cout<<tr.search("rishabh")<<endl;
+ 
+    tr.insert("rishabh");
+    cout<<tr.search("rishabh")<<endl;
+    tr.insert("rishaklbdawbd");
+    cout<<tr.search("rishaklbdawbd")<<endl;
+    
+    tr.insert("hgseIOhvsnbv");
+     cout<<tr.search("hgseIOhvsnbv")<<endl;
+     
+     cout<<tr.startsWith("Oh")<<endl;
+      cout<<tr.search("rishakl")<<endl;
+    
+    
+}
