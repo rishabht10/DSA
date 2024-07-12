@@ -1,0 +1,90 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class trieNode{
+  
+  public :
+  bool fl;
+  trieNode* arr[26];
+  trieNode(){
+    fl=false;
+  }
+};
+
+class Trie{
+  trieNode* root;
+  
+  public :
+  Trie(){
+    root=new trieNode();
+    
+  }
+  
+  void insertHelper(int i,trieNode* root, string word){
+    if(i==word.size()){
+      root->fl=true;
+      return;
+    }
+    
+    if( !root->arr[word[i]-'a'])
+    root->arr[word[i]-'a']=new trieNode();
+    
+    insertHelper(i+1,root->arr[word[i]-'a'],word);
+  }
+  
+  void insert(string word){
+    insertHelper(0,root,word);
+  }
+  
+
+  trieNode* getLastRefTrie(string word){
+    auto trav=root;
+    for(auto it:word){
+      
+      if(trav->arr[it-'a']) trav=trav->arr[it-'a'];
+      else return NULL;
+    }
+    return trav;
+  }
+  
+  bool isWord(string word){
+    auto lastRef=getLastRefTrie(word);
+    if(lastRef){
+      return lastRef->fl;
+    }
+     return false;
+  }
+  
+  bool isPrefix(string word){
+    auto lastRef=getLastRefTrie(word);
+    if(lastRef){
+      return !(lastRef->fl) ;
+    }
+    else return false;
+  }
+  
+  
+};
+
+int main() 
+{
+    Trie tr;
+    tr.insert("mntefem");
+    
+    tr.insert("apple");
+    tr.insert("apps");
+    tr.insert("bac");
+    tr.insert("bamn");
+    cout<<tr.isWord("apple")<<"\n";
+    cout<<tr.isWord("bac")<<"\n";
+    cout<<tr.isWord("mntefem")<<"\n";
+    cout<<tr.isPrefix("mntefem")<<"\n";
+    cout<<tr.isPrefix("bac")<<"\n";
+    cout<<tr.isWord("mnt")<<"\n";
+    cout<<tr.isPrefix("mnt")<<"\n";
+    cout<<tr.isPrefix("efy")<<"\n";
+    tr.insert("ef");
+   cout<<tr.isPrefix("e")<<"\n";
+    
+    
+}
