@@ -1,0 +1,50 @@
+class Solution {
+public:
+    Node* cloneGraph(Node* node) {
+        if(!node) return node;
+        map<Node*,bool> vis;
+        queue<Node*> q;
+        q.push(node);
+        vis[node]=true;
+        
+        map<int,vector<int>> adjMap;
+        while(!q.empty()){
+            auto tmp=q.front();
+            q.pop();
+            for(auto it:tmp->neighbors) {
+                
+                adjMap[tmp->val].push_back(it->val);
+                if(!vis[it]) {
+                    q.push(it);
+                    vis[it]=true;
+                }
+            }
+        }
+        
+        map<int,Node*> cloneVis;
+        auto clone=new Node(1);
+        q.push(clone);
+        cloneVis[1]=clone;
+        
+        while(!q.empty()){
+            auto tmp=q.front();
+            q.pop();
+            
+            for(auto it:adjMap[tmp->val]){
+                if(!cloneVis[it]){
+                   auto cln=new Node(it);
+                    
+                cloneVis[it]=cln;
+                    q.push(cln);
+                
+                tmp->neighbors.push_back(cln);
+                
+                }
+                else tmp->neighbors.push_back(cloneVis[it]);
+            }
+        }
+        return clone;
+        
+        
+    }
+};
