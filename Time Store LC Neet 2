@@ -1,0 +1,50 @@
+class TimeMap {
+public:
+    map<string,map<int,string>> storeMap;
+    
+    TimeMap() {
+        
+    }
+    
+    void set(string key, string value, int timestamp) {
+        storeMap[key][timestamp]=value;
+    }
+    
+    int justSmaller(vector<int> keys,int timestamp){
+        int l=0,h=keys.size()-1,m;
+        int key;
+        while(l<=h){
+            m=(l+h)>>1;
+            if(keys[m]<timestamp) {
+                l=m+1;
+                key=keys[m];
+            }
+            else h=m-1;
+        }
+        
+        return key;
+        
+        
+        
+    }
+    
+    string get(string key, int timestamp) {
+        
+        if(storeMap.find(key)==storeMap.end()) return "";
+        
+        if(storeMap[key].find(timestamp)==storeMap[key].end()){
+            if(timestamp<(*storeMap[key].begin()).first) return "";
+            else if(timestamp > (* storeMap[key].rbegin()).first) 
+            return (*storeMap[key].rbegin()).second;
+            else {
+                
+                vector<int> keys;
+                for(auto it:storeMap[key]) keys.push_back(it.first);
+                
+                return storeMap[key][justSmaller(keys,timestamp)];
+                
+            }
+        }
+        return storeMap[key][timestamp];
+    }
+};
